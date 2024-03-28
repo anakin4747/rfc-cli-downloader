@@ -37,13 +37,15 @@ print_missing_dep () {
 # Tell user what dependencies they are missing if any
 [ ${#missing_dependencies[@]} -eq 0 ] || print_missing_dep
 
-no_args () {
-    printf "\e[31mNo RFCs passed to script\e[0m\n"
+usage () {
+    printf "Download RFC text files by number\n\n"
+    printf "Usage:\n\trfc RFC-number...\n\n"
+    printf "Examples:\n\trfc 1945\n\trfc 1945 7230 7540\n\n"
     exit
 }
 
 # Exit if no args were passed to script
-[ ! "$#" -eq 0 ] || no_args
+[ ! "$#" -eq 0 ] || usage
 
 err_invalid_num () {
     red_banner
