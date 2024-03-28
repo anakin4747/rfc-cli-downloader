@@ -16,14 +16,20 @@ for dep in "${dependencies[@]}"; do
     command -v "$dep" &> /dev/null || missing_dependencies+=("$dep")
 done
 
-print_missing_dep () {
+# 80 red #'s
+red_banner () {
     printf "\e[31m%.0s#\e[0m" {1..80}
+}
+export -f red_banner
+
+print_missing_dep () {
+    red_banner
     printf "\n\e[31mMissing Dependencies:\n"
     for dep in "${missing_dependencies[@]}"; do
         printf "\t$dep\n"
     done
     printf "\e[0m"
-    printf "\e[31m%.0s#\e[0m" {1..80}
+    red_banner
     echo
     exit 2
 }
@@ -40,20 +46,22 @@ no_args () {
 [ ! "$#" -eq 0 ] || no_args
 
 err_invalid_num () {
-    printf "\e[31m%.0s#\e[0m" {1..80}
+    red_banner
     printf "\n\e[31mInvalid argument:  $1\e[0m\n"
-    printf "\e[31m%.0s#\e[0m" {1..80}
+    red_banner
     echo
     exit 2
 }
+export -f err_invalid_num
 
 err_download_failed () {
-    printf "\e[31m%.0s#\e[0m" {1..80}
+    red_banner
     printf "\n\e[31mDownload failed for $1\e[0m\n"
-    printf "\e[31m%.0s#\e[0m" {1..80}
+    red_banner
     echo
     exit 2
 }
+export -f err_download_failed
 
 download () {
     # Check if an arg is a number for soft error checking
