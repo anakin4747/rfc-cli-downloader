@@ -23,9 +23,4 @@ rfc1945.txt rfc7230.txt rfc7540.txt
 
 ## Install
 
-Download the script `rfc.sh`, make it executable, and have it on your path.
-
-I prefer to symlink it to a folder I have specifically for scripts:
-```sh
-ln -s <install-path>/rfc.sh ~/.scripts/rfc
-```
+Clone this repo and run `make install`. To uninstall run `make uninstall`.
